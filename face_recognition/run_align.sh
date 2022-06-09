@@ -1,0 +1,2 @@
+export PYTHONPATH=../facenet/src
+for N in {1..4}; do python3 ../facenet/src/align/align_dataset_mtcnn.py /home/socialab/Desktop/Bruno/FaceRecognition/face_recognition_softmax/dataset/icbrw_Data_Cropped/icbrw_ProbeImages/ /home/socialab/Desktop/Bruno/FaceRecognition/face_recognition_softmax/dataset/icbrw_Data_Cropped/icbrw_ProbeImages_mtcnn_224 --image_size 224 --margin 32 --random_order --gpu_memory_fraction 0.24 & done

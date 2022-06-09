@@ -1,0 +1,29 @@
+#Model Config
+backbone: ResNet50
+batch-size: 32
+epoch: 20
+learning-rate: 0.001
+scale-l2-regularizer: 0.01
+dropout-rate: 0.5
+experiment: 'Baseline'
+
+#Database Config
+train-path: '/media/socialab/53523fbd-9f42-4704-95e6-cbd31933c196/CASIA-WebFace_aligned_mtcnn_224_train_test/train'
+validation-path: '/media/socialab/53523fbd-9f42-4704-95e6-cbd31933c196/CASIA-WebFace_aligned_mtcnn_224_train_test/test'
+inputSize: 112
+
+#Test Config
+dataset-name: 'ICBRW' # 'ICBRW' 'LFW'
+model-weights-path: 'E:\ProjetoRefazer\weights_1.h5'
+test-path: 'E:\ProjetoRefazer\face_recognition_softmax\dataset\icbrw_Data_Cropped\icbrw_ProbeImages\'
+pairs-path: 'E:\ProjetoRefazer\face_recognition_softmax\dataset\icbrw_Data_Cropped\pairs.txt'
+test-type: 'Align-L2-CosineSim' #'Align'; 'Align-L2'; 'Align-L2-CosineSim'; 'Baseline'
+
+#Prepare Data Config
+database-path: ''
+destination-path: ''
+
+#Create Pairs ICBRW
+dataset-local: 'E:/ProjetoRefazer/face_recognition_softmax/dataset/icbrw_Data_Cropped/icbrw_ProbeImages/'
+pairs-local: 'E:/ProjetoRefazer/face_recognition_softmax/dataset/icbrw_Data_Cropped/pairs.txt'
+
