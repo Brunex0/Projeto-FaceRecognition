@@ -14,9 +14,9 @@ inputSize: 112
 
 #Test Config
 dataset-name: 'ICBRW' # 'ICBRW' 'LFW'
-model-weights-path: 'E:\ProjetoRefazer\weights_1.h5'
-test-path: 'E:\ProjetoRefazer\face_recognition_softmax\dataset\icbrw_Data_Cropped\icbrw_ProbeImages\'
-pairs-path: 'E:\ProjetoRefazer\face_recognition_softmax\dataset\icbrw_Data_Cropped\pairs.txt'
+model-weights-path: 'E:\Projeto-FaceRecognition\weights_1.h5'
+test-path: 'E:\Projeto-FaceRecognition\face_recognition\dataset\icbrw_Data_Cropped\icbrw_ProbeImages\'
+pairs-path: 'E:\Projeto-FaceRecognition\face_recognition\dataset\icbrw_Data_Cropped\pairs.txt'
 test-type: 'Align-L2-CosineSim' #'Align'; 'Align-L2'; 'Align-L2-CosineSim'; 'Baseline'
 
 #Prepare Data Config
@@ -24,6 +24,9 @@ database-path: ''
 destination-path: ''
 
 #Create Pairs ICBRW
-dataset-local: 'E:/ProjetoRefazer/face_recognition_softmax/dataset/icbrw_Data_Cropped/icbrw_ProbeImages/'
-pairs-local: 'E:/ProjetoRefazer/face_recognition_softmax/dataset/icbrw_Data_Cropped/pairs.txt'
+dataset-local: 'E:\Projeto-FaceRecognition\face_recognition\dataset\icbrw_Data_Cropped\icbrw_ProbeImages\'
+pairs-local: 'E:\Projeto-FaceRecognition\face_recognition\dataset\icbrw_Data_Cropped\pairs.txt'
+
+#Evaluations results
+evaluation-data: 'E:\Projeto-FaceRecognition\face_recognition\evaluationsResult\Align-L2-CosineSim.npz'
 
