@@ -5,9 +5,8 @@ import numpy as np
 from loadContentFiles import *
 
 cfgData = load_yaml('../config.yml')
-data = np.load(cfgData['evaluation-data'])
-TPR = data['x']
-FPR = data['y']
+data = np.load(cfgData['model-data'], allow_pickle=True).item()
+
 
 sns.set_style('darkgrid')  # darkgrid, white grid, dark, white and ticks
 sns.color_palette('pastel')
@@ -19,11 +18,13 @@ plt.rc('legend', fontsize=13)  # legend fontsize
 plt.rc('font', size=13)  # controls default text sizes
 plt.figure(figsize=(7, 7), tight_layout=True)
 # plotting
-plt.plot(FPR, TPR, linewidth=2)
+
+plt.plot(data['loss'], linewidth=2)
+plt.plot(data['val_loss'], linewidth=2)
 # customization
 plt.xlabel('False Positive Rate')
 plt.ylabel('True Positive Rate')
 plt.title('Roc curve')
-plt.legend(title='Auc', title_fontsize=13, labels=[round(float(data['z']), 2)])
+
 #plt.savefig('Align-L2-CousineSim.png')
 plt.show()

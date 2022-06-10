@@ -6,6 +6,11 @@ import keras.backend as K
 from sklearn import metrics
 
 def readPairs(cfgData):
+    """
+        Read all pairs from icbrw pairs file.
+        :param cfgData: The config data
+        :return: returns the matched and mismatched pairs
+    """
     pairsFile = open(cfgData['pairs-path'], 'r')
     linesFromFile = pairsFile.readlines()
     matchedPairs=[]

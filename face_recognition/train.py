@@ -36,30 +36,10 @@ EXPERIMENT_NAME = cfgData['experiment']
 train_path = cfgData['train-path']
 valid_path = cfgData['validation-path']
 
-"""# ResNet50 backbone
-backbone = ResNet50(input_shape=IMAGE_SIZE + [3], weights='imagenet', include_top=False)
 
-# Put backbone layers trainable
-for layer in backbone.layers:
-    layer.trainable = True
-
-backbone.summary()
-
-# Get the number of classes
-folders = glob(train_path + "/*")
-
-x = BatchNormalization()(backbone.output)
-x = GlobalAveragePooling2D()(x)
-x = Dropout(cfgData['dropout-rate'])(x)
-
-x = Flatten()(x)
-# x = Dense(1000, activation='relu')(x)
-prediction = Dense(len(folders), activation='softmax', activity_regularizer=regularizers.l2(cfgData['scale-l2-regularizer']))(x)
-
-# create a model object
-model = Model(inputs=backbone.input, outputs=prediction)"""
 folders = glob(train_path + "/*")
 model=ResNet50WithSoftmax(cfgData, len(folders))
+
 # view the structure of the model
 model.summary()
 
@@ -70,9 +50,7 @@ model.compile(
     metrics=['accuracy']
 )
 
-#Ver ao código feito
-#Por no relatorio para o softmax -> Com icbrw
-#Fazer com icbrw para icbrw probeImages
+
 train_datagen = ImageDataGenerator(
     horizontal_flip=True,
     preprocessing_function=preprocess_input)
@@ -99,8 +77,6 @@ modelCheckpoint_callback = ModelCheckpoint(
     save_best_only=True,
     verbose=1
     )
-
-ImageCheckpoint = LossAndAccuracySaveImage()
 
 eval_lfw_verif_mode = LFWEvaluation()
 

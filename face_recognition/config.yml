@@ -11,12 +11,14 @@ experiment: 'Baseline'
 train-path: '/media/socialab/53523fbd-9f42-4704-95e6-cbd31933c196/CASIA-WebFace_aligned_mtcnn_224_train_test/train'
 validation-path: '/media/socialab/53523fbd-9f42-4704-95e6-cbd31933c196/CASIA-WebFace_aligned_mtcnn_224_train_test/test'
 inputSize: 112
+lfw-callback: '/home/socialab/Joao/projects/face_recognition_softmax/lfw_aligned_mtcnn_224/'
+lfw-callback-pairs: '/home/socialab/Joao/projects/face_recognition_softmax/lfw_funneled/pairs_forTestInTrainning.txt'
 
 #Test Config
 dataset-name: 'ICBRW' # 'ICBRW' 'LFW'
-model-weights-path: 'E:\Projeto-FaceRecognition\weights_1.h5'
-test-path: 'E:\Projeto-FaceRecognition\face_recognition\dataset\icbrw_Data_Cropped\icbrw_ProbeImages\'
-pairs-path: 'E:\Projeto-FaceRecognition\face_recognition\dataset\icbrw_Data_Cropped\pairs.txt'
+model-weights-path: 'E:\Projeto-FaceRecognition\face_recognition\checkpoints\Align\weights_12.h5'
+test-path: 'E:\Projeto-FaceRecognition\face_recognition\dataset\icbrw_ProbeImages_mtcnn_224\'
+pairs-path: 'E:\Projeto-FaceRecognition\face_recognition\dataset\icbrw_ProbeImages_mtcnn_224\pairs.txt'
 test-type: 'Align-L2-CosineSim' #'Align'; 'Align-L2'; 'Align-L2-CosineSim'; 'Baseline'
 
 #Prepare Data Config
@@ -24,9 +26,10 @@ database-path: ''
 destination-path: ''
 
 #Create Pairs ICBRW
-dataset-local: 'E:\Projeto-FaceRecognition\face_recognition\dataset\icbrw_Data_Cropped\icbrw_ProbeImages\'
-pairs-local: 'E:\Projeto-FaceRecognition\face_recognition\dataset\icbrw_Data_Cropped\pairs.txt'
+dataset-local: 'E:\Projeto-FaceRecognition\face_recognition\dataset\icbrw_ProbeImages_mtcnn_224\'
+pairs-local: 'E:\Projeto-FaceRecognition\face_recognition\dataset\icbrw_ProbeImages_mtcnn_224\pairs.txt'
 
 #Evaluations results
 evaluation-data: 'E:\Projeto-FaceRecognition\face_recognition\evaluationsResult\Align-L2-CosineSim.npz'
+model-data: 'E:\Projeto-FaceRecognition\face_recognition\checkpoints\Align\history.npy'
 

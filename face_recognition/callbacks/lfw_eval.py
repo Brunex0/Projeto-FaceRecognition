@@ -6,9 +6,10 @@ from tensorflow.keras.applications.resnet50 import preprocess_input
 import keras.backend as K
 import matplotlib.pyplot as plt
 from sklearn import metrics
+from loadContentFiles import load_yaml
 
-pairs = '/home/socialab/Joao/projects/face_recognition_softmax/lfw_funneled/pairs_forTestInTrainning.txt'
-simpleDataset = '/home/socialab/Joao/projects/face_recognition_softmax/lfw_aligned_mtcnn_224/'
+#pairs = '/home/socialab/Joao/projects/face_recognition_softmax/lfw_funneled/pairs_forTestInTrainning.txt'
+#simpleDataset = '/home/socialab/Joao/projects/face_recognition_softmax/lfw_aligned_mtcnn_224/'
 
 
 def createPairsArray(url, pairsList):
@@ -94,9 +95,9 @@ def calculateRocAndAccuracy(model, matchPairs, mismatchPairs):
 
 
 def lfw_eval_callback(model):
+    cfgData = load_yaml('config.yml')
 
-
-    numMatchedPairs, matchedPairs, numMisMatchedPairs, mismatchedPairs = createPairsArray(simpleDataset, pairs)
+    numMatchedPairs, matchedPairs, numMisMatchedPairs, mismatchedPairs = createPairsArray(cfgData['lfw-callback'], cfgData['lfw-callback-pairs'])
 
     model_part = tf.keras.Model(
         inputs=model.input,

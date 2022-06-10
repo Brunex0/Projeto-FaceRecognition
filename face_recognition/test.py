@@ -14,7 +14,7 @@ from datetime import datetime
 if "__main__":
     cfgData = load_yaml('config.yml')
     folders = glob(cfgData['train-path'] + "/*")
-    modelTest = ResNet50WithSoftmax(cfgData, 10580)
+    modelTest = ResNet50WithSoftmax(cfgData, 10575)
     modelTest.load_weights(cfgData['model-weights-path'])
     #model.load_weights(ckpt_path)
     model_part = tf.keras.Model(
@@ -22,19 +22,26 @@ if "__main__":
         outputs=modelTest.get_layer("flatten").output
     )
     checkpoint_timestamp = datetime.now().strftime("%d%m%Y_%H%M")
-    pathForSave = os.path.join('evaluationsResult', checkpoint_timestamp, cfgData['dataset-name'])
+    pathForSave = os.path.join('evaluationsResult', cfgData['dataset-name'], cfgData['test-type'],checkpoint_timestamp)
     if not os.path.exists(pathForSave):
         os.makedirs(pathForSave)
 
     if cfgData['dataset-name'] == 'LFW':
-        numMatchedPairs, matchedPairs, numMisMatchedPairs, mismatchedPairs = createPairsArray(cfgData)
-        TPR, FPR, auc = calculateRocAndAccuracy(cfgData, model_part, matchedPairs, mismatchedPairs)
-        np.savez(pathForSave + '/'+cfgData['test-type']+'.npz', x=TPR, y=FPR, z=auc)
+        matchedPairs, mismatchedPairs = createPairsArray(cfgData)
+        TPR, FPR, auc, acc = calculateRocAndAccuracy(cfgData, model_part, matchedPairs, mismatchedPairs)
+        np.savez(pathForSave + '/'+cfgData['test-type']+'.npz', x=TPR, y=FPR, z=auc, w=acc)
+        print("acc:", acc)
+        print("auc:", auc)
+        plt.plot(FPR, TPR)
+        plt.ylabel('True Positive Rate')
+        plt.xlabel('False Positive Rate')
+        plt.show()
     elif cfgData['dataset-name'] == 'ICBRW':
         matchedPairs, mismatchedPairs = readPairs(cfgData)
-        TPR, FPR, auc = calculateRocAndAccuracy(cfgData, model_part, matchedPairs, mismatchedPairs)
-        np.savez(pathForSave + '/' + cfgData['test-type'] + '.npz', x=TPR, y=FPR, z=auc)
-        print(auc)
+        TPR, FPR, auc, acc = calculateRocAndAccuracy(cfgData, model_part, matchedPairs, mismatchedPairs)
+        np.savez(pathForSave + '/' + cfgData['test-type'] + '.npz', x=TPR, y=FPR, z=auc, w=acc)
+        print("acc:",acc)
+        print("auc:", auc)
         plt.plot(FPR, TPR)
         plt.ylabel('True Positive Rate')
         plt.xlabel('False Positive Rate')
