@@ -3,10 +3,10 @@ import numpy as np
 
 def createPairsArray(cfgData):
     """
-            Read all pairs from icbrw pairs file and format for the correct path.
-            :param cfgData: The config data
-            :return: returns the matched and mismatched pairs
-        """
+        Read all pairs from icbrw pairs file and format for the correct path.
+        :param cfgData: The config data
+        :return: returns the matched and mismatched pairs
+    """
     file = open(cfgData['pairs-path'], 'r')
     lines = file.readlines()
     matchedPairs = []

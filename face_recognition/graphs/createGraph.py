@@ -4,6 +4,11 @@ import pandas as pd
 import numpy as np
 from loadContentFiles import *
 
+"""
+    Create the Roc curve graph
+"""
+
+#Load config file
 cfgData = load_yaml('../config.yml')
 data = np.load(cfgData['evaluation-data'])
 TPR = data['x']
@@ -23,7 +28,7 @@ plt.plot(FPR, TPR, linewidth=2)
 # customization
 plt.xlabel('False Positive Rate')
 plt.ylabel('True Positive Rate')
-plt.title('Roc curve')
-plt.legend(title='Auc', title_fontsize=13, labels=[round(float(data['z']), 2)])
-#plt.savefig('Align-L2-CousineSim.png')
-plt.show()
+plt.title('ROC Curve')
+plt.legend(title='AUC', title_fontsize=13, labels=[round(float(data['z']), 3)], loc='lower right')
+plt.savefig('RocCurve/LFW/Align.png')
+#plt.show()

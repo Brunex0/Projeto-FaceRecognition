@@ -13,6 +13,11 @@ from loadContentFiles import load_yaml
 
 
 def createPairsArray(url, pairsList):
+    """
+        Read all pairs from icbrw pairs file and format for the correct path.
+        :param cfgData: The config data
+        :return: returns the matched and mismatched pairs
+    """
     file = open(pairsList, 'r')
     lines = file.readlines()
     matchedPairs = []
@@ -36,7 +41,14 @@ def createPairsArray(url, pairsList):
 
 
 def calculateDistance(model, pair1, pair2):
-
+    """
+        Calculate the distance of two pairs.
+        :param cfgData: The config data
+        :param model: The model to predict the features
+        :param pair1: The first element of a pair
+        :param pair2: The second element of a pair
+        :return: returns the distance
+    """
     img = cv2.imread(pair1)
     img = cv2.resize(img, (112, 112))
     # img = img.astype(np.float32) / 255.
@@ -66,13 +78,16 @@ def calculateDistance(model, pair1, pair2):
 
 
 def calculateRocAndAccuracy(model, matchPairs, mismatchPairs):
-
+    """
+        Calculate the Roc and accuracy.
+        :param cfgData: The config data
+        :param model: The model to predict the features
+        :param matchPairs: The pairs with images of the same person
+        :param mismatchPairs: The pairs with images of the different persons
+        :return: returns the TPR (True positive rate), FPR (False positive rate), AUC (Area Under The Curve), ACC (Accuracy)
+    """
     y_score = []
     y_true = []
-    TruePR = []
-    FalsePR = []
-    valuesForAcc = []
-    acc = 0
     print("Start Computing distances")
     
     print("Matched Pairs")
@@ -95,6 +110,10 @@ def calculateRocAndAccuracy(model, matchPairs, mismatchPairs):
 
 
 def lfw_eval_callback(model):
+    """
+        Evaluate the model in LFW and then print the AUC calculated
+        :param model: the model to use for predict
+    """
     cfgData = load_yaml('config.yml')
 
     numMatchedPairs, matchedPairs, numMisMatchedPairs, mismatchedPairs = createPairsArray(cfgData['lfw-callback'], cfgData['lfw-callback-pairs'])

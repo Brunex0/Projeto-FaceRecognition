@@ -91,16 +91,4 @@ r = model.fit(
 model.save('resnet50_softmax_casia.h5')
 np.save('checkpoints/ResNet50/Baseline/history1.npy', r.history)
 np.save(path +'/history1.npy', r.history)
-"""# loss
-plt.plot(r.history['loss'], label='train loss')
-plt.plot(r.history['val_accuracy'], label='val loss')
-plt.legend()
-plt.show()
-plt.savefig('LossVal_loss')
 
-# accuracies
-plt.plot(r.history['accuracy'], label='train acc')
-plt.plot(r.history['val_accuracy'], label='val acc')
-plt.legend()
-plt.show()
-plt.savefig('AccVal_acc')"""

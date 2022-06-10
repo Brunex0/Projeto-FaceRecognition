@@ -40,7 +40,9 @@ class LossAndAccuracySaveImage(keras.callbacks.Callback):
 
 
 class LFWEvaluation(keras.callbacks.Callback):
-
+    """
+        Callback to evaluate on LFW at the end of each epoch
+    """
     def __init__(self, patience=0):
         super(LFWEvaluation, self).__init__()
         # best_weights to store the weights at which the minimum loss occurs.

@@ -51,7 +51,7 @@ Change callbacks at line 88 to: callbacks=[modelCheckpoint_callback]
 Finally, it's possible to run the file as `python3 train.py`
 
 ### Other notes
-* Baseline: Train with no align dataset and test with no align dataset and without L2 normalization;
-* Align: Train with align dataset and test with align dataset
-* Align-L2: Train with align dataset. Test with align dataset, using L2 normalization for the features and calculate euclidean distance between the features
-* Align-L2-CosineSim: Train with align dataset. Test with align dataset, using L2 normalization for the features and calculate cosine similarity.
+* **Baseline**: Train with no align dataset and test with no align dataset and without L2 normalization;
+* **Align**: Train with align dataset and test with align dataset
+* **Align-L2**: Train with align dataset. Test with align dataset, using L2 normalization for the features and calculate euclidean distance between the features
+* **Align-L2-CosineSim**: Train with align dataset. Test with align dataset, using L2 normalization for the features and calculate cosine similarity.

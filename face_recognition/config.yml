@@ -30,6 +30,6 @@ dataset-local: 'E:\Projeto-FaceRecognition\face_recognition\dataset\icbrw_ProbeI
 pairs-local: 'E:\Projeto-FaceRecognition\face_recognition\dataset\icbrw_ProbeImages_mtcnn_224\pairs.txt'
 
 #Evaluations results
-evaluation-data: 'E:\Projeto-FaceRecognition\face_recognition\evaluationsResult\Align-L2-CosineSim.npz'
+evaluation-data: 'E:\Projeto-FaceRecognition\face_recognition\evaluationsResult\LFW\Align\10062022_1536\Align.npz'
 model-data: 'E:\Projeto-FaceRecognition\face_recognition\checkpoints\Align\history.npy'
 
