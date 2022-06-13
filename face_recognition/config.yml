@@ -16,10 +16,10 @@ lfw-callback-pairs: '/home/socialab/Joao/projects/face_recognition_softmax/lfw_f
 
 #Test Config
 dataset-name: 'ICBRW' # 'ICBRW' 'LFW'
-model-weights-path: 'E:\Projeto-FaceRecognition\face_recognition\checkpoints\Align\weights_12.h5'
-test-path: 'E:\Projeto-FaceRecognition\face_recognition\dataset\icbrw_ProbeImages_mtcnn_224\'
-pairs-path: 'E:\Projeto-FaceRecognition\face_recognition\dataset\icbrw_ProbeImages_mtcnn_224\pairs.txt'
-test-type: 'Align-L2-CosineSim' #'Align'; 'Align-L2'; 'Align-L2-CosineSim'; 'Baseline'
+model-weights-path: 'E:\Projeto-FaceRecognition\face_recognition\checkpoints\Baseline\weights_12.h5'
+test-path: 'C:\Users\bruno\Desktop\Universidade_3Ano_2Semestre\Projeto\FaceRecognition\Dataset\icbrw_Data_Cropped\icbrw_ProbeImages\'
+pairs-path: 'E:\Projeto-FaceRecognition\face_recognition\dataset\pairs.txt'
+test-type: 'Baseline' #'Align'; 'Align-L2'; 'Align-L2-CosineSim'; 'Baseline'
 
 #Prepare Data Config
 database-path: ''
@@ -29,7 +29,8 @@ destination-path: ''
 dataset-local: 'E:\Projeto-FaceRecognition\face_recognition\dataset\icbrw_ProbeImages_mtcnn_224\'
 pairs-local: 'E:\Projeto-FaceRecognition\face_recognition\dataset\icbrw_ProbeImages_mtcnn_224\pairs.txt'
 
+
 #Evaluations results
-evaluation-data: 'E:\Projeto-FaceRecognition\face_recognition\evaluationsResult\LFW\Align\10062022_1536\Align.npz'
-model-data: 'E:\Projeto-FaceRecognition\face_recognition\checkpoints\Align\history.npy'
+evaluation-data: 'E:\Projeto-FaceRecognition\face_recognition\evaluationsResult\LFW\Baseline\10062022_2226\Baseline.npz'
+model-data: 'E:\Projeto-FaceRecognition\face_recognition\checkpoints\Baseline\history.npy'
 

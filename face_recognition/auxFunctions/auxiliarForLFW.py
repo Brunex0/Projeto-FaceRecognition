@@ -14,12 +14,12 @@ def createPairsArray(cfgData):
     for line in lines:
         str = line.split('\t')
         if len(str) == 3:
-            img1 = cfgData['test-path'] + str[0] + '/' + str[0] + '_' + str[1].zfill(4) + '.png'
-            img2 = cfgData['test-path'] + str[0] + '/' + str[0] + '_' + str[2].rstrip().zfill(4) + '.png'
+            img1 = cfgData['test-path'] + str[0] + '/' + str[0] + '_' + str[1].zfill(4) + '.jpg'
+            img2 = cfgData['test-path'] + str[0] + '/' + str[0] + '_' + str[2].rstrip().zfill(4) + '.jpg'
             matchedPairs.append([img1, img2])
         elif len(str) == 4:
-            img1 = cfgData['test-path'] + str[0] + '/' + str[0] + '_' + str[1].zfill(4) + '.png'
-            img2 = cfgData['test-path'] + str[2] + '/' + str[2] + '_' + str[3].rstrip().zfill(4) + '.png'
+            img1 = cfgData['test-path'] + str[0] + '/' + str[0] + '_' + str[1].zfill(4) + '.jpg'
+            img2 = cfgData['test-path'] + str[2] + '/' + str[2] + '_' + str[3].rstrip().zfill(4) + '.jpg'
             mismatchedPairs.append([img1, img2])
     return matchedPairs, mismatchedPairs
 

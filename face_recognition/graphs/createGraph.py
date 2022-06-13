@@ -13,6 +13,8 @@ cfgData = load_yaml('../config.yml')
 data = np.load(cfgData['evaluation-data'])
 TPR = data['x']
 FPR = data['y']
+print(data['w'])
+print(data['z'])
 
 sns.set_style('darkgrid')  # darkgrid, white grid, dark, white and ticks
 sns.color_palette('pastel')
@@ -30,5 +32,5 @@ plt.xlabel('False Positive Rate')
 plt.ylabel('True Positive Rate')
 plt.title('ROC Curve')
 plt.legend(title='AUC', title_fontsize=13, labels=[round(float(data['z']), 3)], loc='lower right')
-plt.savefig('RocCurve/LFW/Align.png')
+#plt.savefig('RocCurve/LFW/Baseline.png')
 #plt.show()
