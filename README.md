@@ -5,7 +5,7 @@
 First you need to download the Casia-Webface for trainning and LFW-funneled for validation and testing and icbrw to test in surveillance environments.
 * Casia-Webface: https://paperswithcode.com/dataset/casia-webface
 * LFW-funneled: http://vis-www.cs.umass.edu/lfw/
-* ICBRW: http://icbrw.di.ubi.pt/
+* ICB-RW: http://icbrw.di.ubi.pt/
 
 ### Face Alignment
 To obtain better results, we need to align the faces.
@@ -31,7 +31,7 @@ Finally, you need to change the path of the directories in `run_align.sh` and th
 At this stage, you need to split the training dataset in 80% of the photos to train and 20% for validation. You can use `create_train_test_splits.py` to do that.
 
 ### The config file
-The `config.yml` file contains all the configurations necessary to train, test, prepare the data, to create the pairs for the icbrw and the paths to use to do evaluation.
+The `config.yml` file contains all the configurations necessary to train, test, prepare the data, to create the pairs for the ICB-RW and the paths to use to do evaluation.
 
 ### Train
 To train the model you need to change the following paths according to the location of your files:

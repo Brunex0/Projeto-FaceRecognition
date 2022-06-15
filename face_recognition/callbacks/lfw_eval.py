@@ -1,5 +1,5 @@
 import tensorflow as tf
-from model import model
+from model import *
 import cv2
 import numpy as np
 from tensorflow.keras.applications.resnet50 import preprocess_input
@@ -114,7 +114,7 @@ def lfw_eval_callback(model):
         Evaluate the model in LFW and then print the AUC calculated
         :param model: the model to use for predict
     """
-    cfgData = load_yaml('config.yml')
+    cfgData = load_yaml('./config.yml')
 
     numMatchedPairs, matchedPairs, numMisMatchedPairs, mismatchedPairs = createPairsArray(cfgData['lfw-callback'], cfgData['lfw-callback-pairs'])
 
