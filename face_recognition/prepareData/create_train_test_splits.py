@@ -5,6 +5,10 @@ from glob import glob
 from sklearn.model_selection import train_test_split
 from loadContentFiles import load_yaml
 
+"""
+    Split a dataset in two groups train and test. 80% of the images are for training and 20% for test 
+"""
+
 #Load config file
 cfgData = load_yaml('../config.yml')
 

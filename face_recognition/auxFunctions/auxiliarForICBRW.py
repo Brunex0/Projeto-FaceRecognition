@@ -1,9 +1,5 @@
 import cv2
-import tensorflow as tf
 import numpy as np
-from tensorflow.keras.applications.resnet50 import preprocess_input
-import keras.backend as K
-from sklearn import metrics
 
 def readPairs(cfgData):
     """

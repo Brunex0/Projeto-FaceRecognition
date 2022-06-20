@@ -23,7 +23,6 @@ def calculateDistance(cfgData, model, pair1, pair2):
 
     if len(img.shape) == 3:
         img = np.expand_dims(img, 0)
-    #embeds1 = model([img,label])
     embeds1 = model(img)
     if cfgData['test-type'] == 'Align-L2' or cfgData['test-type'] == 'Align-L2-CosineSim':
         embeds1 = K.l2_normalize(embeds1, axis=1)
@@ -35,7 +34,6 @@ def calculateDistance(cfgData, model, pair1, pair2):
 
     if len(img.shape) == 3:
         img = np.expand_dims(img, 0)
-    #embeds2 = model([img,label])
     embeds2 = model(img)
     if cfgData['test-type'] == 'Align-L2' or cfgData['test-type'] == 'Align-L2-CosineSim':
         embeds2 = K.l2_normalize(embeds2, axis=1)

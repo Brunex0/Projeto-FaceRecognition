@@ -26,25 +26,17 @@ if "__main__":
     if not os.path.exists(pathForSave):
         os.makedirs(pathForSave)
 
+    # The test use a diferent function to get the pairs if it use LFW or ICB-RW dataset
     if cfgData['dataset-name'] == 'LFW':
         matchedPairs, mismatchedPairs = createPairsArray(cfgData)
         TPR, FPR, auc, acc = calculateRocAndAccuracy(cfgData, model_part, matchedPairs, mismatchedPairs)
         np.savez(pathForSave + '/'+cfgData['test-type']+'.npz', x=TPR, y=FPR, z=auc, w=acc)
-        print("acc:", acc)
-        print("auc:", auc)
-        plt.plot(FPR, TPR)
-        plt.ylabel('True Positive Rate')
-        plt.xlabel('False Positive Rate')
-        plt.show()
     elif cfgData['dataset-name'] == 'ICBRW':
         matchedPairs, mismatchedPairs = readPairs(cfgData)
         TPR, FPR, auc, acc = calculateRocAndAccuracy(cfgData, model_part, matchedPairs, mismatchedPairs)
+        print("auc",auc)
+        print("acc", acc)
         np.savez(pathForSave + '/' + cfgData['test-type'] + '.npz', x=TPR, y=FPR, z=auc, w=acc)
-        print("acc:",acc)
-        print("auc:", auc)
-        plt.plot(FPR, TPR)
-        plt.ylabel('True Positive Rate')
-        plt.xlabel('False Positive Rate')
-        plt.show()
+
 
 #nvidia-smi ->ver percentagem da GPU

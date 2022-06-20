@@ -3,6 +3,10 @@ import glob
 import random
 from loadContentFiles import load_yaml
 
+"""
+    Create the pairs for ICB-RW dataset. 900 pairs are with the same identity and 900 pairs are with different identities
+"""
+
 cfgData = load_yaml('../config.yml')
 pairsFile = open(cfgData['pairs-local'], 'a')
 PATH = cfgData['dataset-local']

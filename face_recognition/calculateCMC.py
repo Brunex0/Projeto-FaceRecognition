@@ -15,6 +15,13 @@ from tensorflow.keras.applications.resnet50 import preprocess_input
 import seaborn as sns
 
 def prevision(cfgData, model, url):
+    """
+    Do the inference of a image and return the embeddings/features of that image
+    :param cfgData: the config data
+    :param model: the CNN model
+    :param url: the image to input to the CNN
+    :return: the vector of features
+    """
     img = cv2.imread(url)
     img = cv2.resize(img, (cfgData['inputSize'], cfgData['inputSize']))
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -29,6 +36,12 @@ def prevision(cfgData, model, url):
 
 
 def saveIdentities(cfgData, model, n_classes):
+    """
+    Save the identities (feature vector) of each person that is in the dataset
+    :param cfgData: the config file
+    :param model: the model
+    :param n_classes: the numer of identities
+    """
     # create labels
     labels = []
     labels2 = []
@@ -49,6 +62,11 @@ def saveIdentities(cfgData, model, n_classes):
 
 
 def nearestFace(X):
+    """
+    Determines how far away a feature vector is from each of the identities, and save it in a vector
+    :param X: the person's features
+    :return: the distance array with all the distances
+    """
     dist = []
     data = np.load('Identities.npy')
     for i in range(0, 90):
@@ -69,27 +87,25 @@ if "__main__":
         outputs=modelTest.get_layer("flatten").output
     )
 
+    # Save all the identities
     #saveIdentities(cfgData,model_part, 90)
     distances = []
+    # Determine the array of distances for all the images in the dataset
     for i in range(0, 90):
         for j in range(1, 6):
             url = "E:\\Projeto-FaceRecognition\\face_recognition\\dataset\\icbrw_ProbeImages_mtcnn_224\\" + str(i) + "\\" + str(i + 1).zfill(3) + "_" + str(j).zfill(2) + ".png"
-            # url2 = "E:\\Projeto-FaceRecognition\\face_recognition\\dataset\\icbrw_GalleryImages_mtcnn_224\\" + str(i) + "\\" + str(i+1).zfill(3) + "_f.png"
             print(url)
             # X = prevision(cfgData, model, url)
             vector = nearestFace(prevision(cfgData, model_part, url))
-            """print(vector)
-            print(min(vector))
-            print(vector.index(min(vector)))
-            print('----------------')"""
+
             vector1 = np.argsort(vector)[::-1]
-            #print(vector1)
-            # np.squeeze(vector)
+
             distances.append(vector1)
 
     matrix = []
     print(len(distances))
 
+    # locates where the person is in the array and marks that position as 1 and the rest as 0
     id = 0
     count=0
     for value in distances:
@@ -101,16 +117,18 @@ if "__main__":
         if count % 5 == 0:
             id+=1
 
-    rank=[]
+    # Determine the values for each rank
+    rank = []
     rank.append(np.array(matrix)[:, 0])
     for i in range(1,90):
         rank.append(np.array(matrix)[:, i])
         rank[i] = rank[i] + rank[i-1]
     import matplotlib.pyplot as plt
-    graph=[]
+    graph = []
     for item in rank:
         graph.append(sum(item)/450)
 
+    # Create the CMC curve
     sns.set_style('darkgrid')  # darkgrid, white grid, dark, white and ticks
     sns.color_palette('pastel')
     plt.rc('axes', titlesize=18)  # fontsize of the axes title
@@ -126,9 +144,3 @@ if "__main__":
     plt.title('CMC')
     plt.savefig('E:\\Projeto-FaceRecognition\\face_recognition\\graphs\\CMCCurve.png')
 
-    print("rank1", graph[0])
-    print("rank2", graph[1])
-    print("rank3", graph[2])
-    print("rank4", graph[3])
-    print("rank5", graph[4])
-    print("rank10", graph[9])

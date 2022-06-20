@@ -1,23 +1,9 @@
 import os
 from keras.callbacks import ModelCheckpoint
-from tensorflow.keras.models import Model
-from tensorflow.keras.applications.resnet50 import ResNet50
 from tensorflow.keras.applications.resnet50 import preprocess_input
 from tensorflow.keras.optimizers import Adam
 import numpy as np
 from glob import glob
-import matplotlib.pyplot as plt
-from tensorflow.keras.layers import (
-    Dense,
-    Dropout,
-    Flatten,
-    Input,
-    GlobalAveragePooling2D,
-)
-from tensorflow.keras.layers import (
-    BatchNormalization
-)
-from tensorflow.keras import regularizers
 from keras.preprocessing.image import ImageDataGenerator
 from callbacks.customCallback import LossAndAccuracySaveImage, LFWEvaluation
 from loadContentFiles import load_yaml
@@ -28,7 +14,7 @@ from datetime import datetime
 #Load config file
 cfgData = load_yaml('config.yml')
 
-# re-size all the images to this
+
 IMAGE_SIZE = [cfgData['inputSize'], cfgData['inputSize']]
 CNN_ARCH = cfgData['backbone']
 EXPERIMENT_NAME = cfgData['experiment']
@@ -38,7 +24,7 @@ valid_path = cfgData['validation-path']
 
 
 folders = glob(train_path + "/*")
-model=ResNet50WithSoftmax(cfgData, len(folders)-1)
+model = ResNet50WithSoftmax(cfgData, len(folders)-1)
 
 # view the structure of the model
 model.summary()
@@ -67,11 +53,13 @@ test_set = test_datagen.flow_from_directory(valid_path,
                                             batch_size=cfgData['batch-size'],
                                             class_mode='categorical')
 
+
 checkpoint_timestamp = datetime.now().strftime("%d%m%Y_%H%M")
 path = os.path.join('checkpoints', CNN_ARCH, EXPERIMENT_NAME, checkpoint_timestamp)
 if not os.path.exists(path):
     os.makedirs(path)
 
+# checkpoint to save model weights
 modelCheckpoint_callback = ModelCheckpoint(
     os.path.join(path, 'weights_{epoch}.h5'),
     save_weights_only=True,
@@ -79,6 +67,7 @@ modelCheckpoint_callback = ModelCheckpoint(
     verbose=1
     )
 
+# evaluate on lfw at the end of each epoch
 eval_lfw_verif_mode = LFWEvaluation()
 
 # fit the model
@@ -90,6 +79,7 @@ r = model.fit(
 )
 
 model.save('resnet50_softmax_casia.h5')
+# Save the history of the training process
 np.save('checkpoints/ResNet50/Baseline/history1.npy', r.history)
 np.save(path +'/history1.npy', r.history)
 
