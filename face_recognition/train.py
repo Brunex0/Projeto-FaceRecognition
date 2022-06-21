@@ -5,7 +5,7 @@ from tensorflow.keras.optimizers import Adam
 import numpy as np
 from glob import glob
 from keras.preprocessing.image import ImageDataGenerator
-from callbacks.customCallback import LossAndAccuracySaveImage, LFWEvaluation
+from callbacks.customCallback import LFWEvaluation
 from loadContentFiles import load_yaml
 from model import ResNet50WithSoftmax
 import tensorflow as tf
