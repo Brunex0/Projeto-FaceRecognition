@@ -19,7 +19,7 @@ dataset-name: 'ICBRW' # 'ICBRW' 'LFW'
 model-weights-path: 'E:\Projeto-FaceRecognition\face_recognition\checkpoints\Align\weights_12.h5' #'E:\Projeto-FaceRecognition\face_recognition\checkpoints\Align\weights_12.h5'
 test-path: 'E:\Projeto-FaceRecognition\face_recognition\dataset\icbrw_ProbeImages_mtcnn_224' #'C:\Users\bruno\Desktop\Universidade_3Ano_2Semestre\Projeto\FaceRecognition\Dataset\icbrw_Data_Cropped\icbrw_ProbeImages\'
 pairs-path: 'E:\Projeto-FaceRecognition\face_recognition\dataset\icbrw_ProbeImages_mtcnn_224\pairs.txt'
-test-type: 'Align-L2' #'Align'; 'Align-L2'; 'Align-L2-CosineSim'; 'Baseline'
+test-type: 'Baseline' #'Align'; 'Align-L2'; 'Align-L2-CosineSim'; 'Baseline'
 
 #Prepare Data Config
 database-path: ''
@@ -31,6 +31,6 @@ pairs-local: 'E:\Projeto-FaceRecognition\face_recognition\dataset\icbrw_ProbeIma
 
 
 #Evaluations results
-evaluation-data: 'E:\Projeto-FaceRecognition\face_recognition\evaluationsResult\ICBRW\Align-L2-CosineSim\10062022_1608\Align-L2-CosineSim.npz'
-model-data: 'E:\Projeto-FaceRecognition\face_recognition\checkpoints\Baseline\history.npy'
+evaluation-data: 'E:\Projeto-FaceRecognition\face_recognition\evaluationsResult\ICBRW\Align\22062022_2115\Align.npz'
+model-data: 'E:\Projeto-FaceRecognition\face_recognition\checkpoints\Align\history.npy'
 

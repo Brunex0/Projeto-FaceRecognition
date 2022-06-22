@@ -14,6 +14,7 @@ from tensorflow.keras.applications.resnet50 import preprocess_input
 
 import seaborn as sns
 
+
 def prevision(cfgData, model, url):
     """
     Do the inference of a image and return the embeddings/features of that image
@@ -35,7 +36,7 @@ def prevision(cfgData, model, url):
     return embeds1
 
 
-def saveIdentities(cfgData, model, n_classes):
+def saveIdentities(cfgData, model, n_classes,id):
     """
     Save the identities (feature vector) of each person that is in the dataset
     :param cfgData: the config file
@@ -51,8 +52,9 @@ def saveIdentities(cfgData, model, n_classes):
         labels2.append(str(i - 1))
 
     for i in range(0, n_classes):
-        url = "E:\\Projeto-FaceRecognition\\face_recognition\\dataset\\icbrw_ProbeImages_mtcnn_224\\" + labels2[i] + "\\" + labels[i] + "_01.png"
-        #url = "E:\\Projeto-FaceRecognition\\face_recognition\\dataset\\icbrw_GalleryImages_mtcnn_224\\" + labels2[i] + "\\" + labels[i] + "_f.png"
+        url = "E:\\Projeto-FaceRecognition\\face_recognition\\dataset\\icbrw_ProbeImages_mtcnn_224\\" + labels2[
+            i] + "\\" + labels[i] + "_0"+str(id)+".png"
+        # url = "E:\\Projeto-FaceRecognition\\face_recognition\\dataset\\icbrw_GalleryImages_mtcnn_224\\" + labels2[i] + "\\" + labels[i] + "_f.png"
         print(url)
         X = prevision(cfgData, model, url)
         Identities.append(X.numpy())
@@ -89,44 +91,76 @@ if "__main__":
 
     # Save all the identities
     #saveIdentities(cfgData,model_part, 90)
-    distances = []
+    #distances = []
+    graphsBYID=[]
+    idForPhotos=3
     # Determine the array of distances for all the images in the dataset
-    for i in range(0, 90):
-        for j in range(1, 6):
-            url = "E:\\Projeto-FaceRecognition\\face_recognition\\dataset\\icbrw_ProbeImages_mtcnn_224\\" + str(i) + "\\" + str(i + 1).zfill(3) + "_" + str(j).zfill(2) + ".png"
-            print(url)
-            # X = prevision(cfgData, model, url)
-            vector = nearestFace(prevision(cfgData, model_part, url))
+    for id in range(1,6):
+        idToCancel = id
+        saveIdentities(cfgData, model_part, 90, id)
+        distances = []
+        for i in range(0, 90):
+            for j in range(1, 6):
+                if idToCancel != j:
+                    url = "E:\\Projeto-FaceRecognition\\face_recognition\\dataset\\icbrw_ProbeImages_mtcnn_224\\" + str(
+                        i) + "\\" + str(i + 1).zfill(3) + "_" + str(j).zfill(2) + ".png"
+                    print(url)
+                    # X = prevision(cfgData, model, url)
+                    vector = nearestFace(prevision(cfgData, model_part, url))
 
-            vector1 = np.argsort(vector)[::-1]
+                    vector1 = np.argsort(vector)[::-1]
 
-            distances.append(vector1)
+                    distances.append(vector1)
 
-    matrix = []
-    print(len(distances))
+        matrix = []
+        print(len(distances))
 
-    # locates where the person is in the array and marks that position as 1 and the rest as 0
-    id = 0
-    count=0
-    for value in distances:
-        idLocation = np.where(value == id)[0][0]
-        array = np.zeros(90, dtype=int)
-        array[idLocation] = 1
-        matrix.append(array)
-        count+=1
-        if count % 5 == 0:
-            id+=1
+        # locates where the person is in the array and marks that position as 1 and the rest as 0
+        id2 = 0
+        count = 0
+        distancesIDLocation = []
+        for value in distances:
+            idLocation = np.where(value == id2)[0][0]
+            array = np.zeros(90, dtype=int)
+            array[idLocation] = 1
+            # array com o idlocation 10 piores ou 25 piores
+            distancesIDLocation.append(idLocation)
+            matrix.append(array)
+            count += 1
+            if count % 4 == 0:
+                id2 += 1
 
-    # Determine the values for each rank
-    rank = []
-    rank.append(np.array(matrix)[:, 0])
-    for i in range(1,90):
-        rank.append(np.array(matrix)[:, i])
-        rank[i] = rank[i] + rank[i-1]
-    import matplotlib.pyplot as plt
-    graph = []
-    for item in rank:
-        graph.append(sum(item)/450)
+        #Get the location of the 10 worst photos
+        if(idForPhotos == id):
+            worst = np.argpartition(distancesIDLocation, -10)[-10:]
+
+        # Determine the values for each rank
+        rank = []
+        rank.append(np.array(matrix)[:, 0])
+        for i in range(1, 90):
+            rank.append(np.array(matrix)[:, i])
+            rank[i] = rank[i] + rank[i - 1]
+        import matplotlib.pyplot as plt
+
+        graph = []
+        for item in rank:
+            graph.append(sum(item) / 360)
+        graphsBYID.append(graph)
+
+    #print(graphsBYID[0])
+    #print("----------------------")
+    #print(graphsBYID[1])
+    #print("---------------------")
+    graph=np.mean(graphsBYID, axis=0)
+    #print(np.mean(graphsBYID, axis=0))
+    print("---------------------")
+    maxPlot=[]
+    minPlot=[]
+    for i in range(0,90):
+        maxi = max([graphsBYID[0][i],graphsBYID[1][i],graphsBYID[2][i],graphsBYID[3][i],graphsBYID[4][i]])
+        mini = min([graphsBYID[0][i],graphsBYID[1][i],graphsBYID[2][i],graphsBYID[3][i],graphsBYID[4][i]])
+        maxPlot.append(maxi)
+        minPlot.append(mini)
 
     # Create the CMC curve
     sns.set_style('darkgrid')  # darkgrid, white grid, dark, white and ticks
@@ -138,9 +172,22 @@ if "__main__":
     plt.rc('legend', fontsize=13)  # legend fontsize
     plt.rc('font', size=13)  # controls default text sizes
     plt.figure(figsize=(7, 7), tight_layout=True)
-    plt.plot(range(1, len(graph) + 1), graph)
+    plt.plot(range(1, len(graph) + 1), graph, 'r')
+    plt.plot(range(1, len(graph) + 1), maxPlot, 'b', alpha=.4)
+    plt.plot(range(1, len(graph) + 1), minPlot, 'b',alpha=.4)
+    plt.fill_between(range(1, len(graph) + 1),maxPlot,minPlot, alpha=.3)
     plt.xlabel('Rank')
     plt.ylabel('Identification Accuracy')
     plt.title('CMC')
-    plt.savefig('E:\\Projeto-FaceRecognition\\face_recognition\\graphs\\CMCCurve.png')
+    plt.legend(title='CMC', title_fontsize=13, labels=['Mean'], loc='lower right')
+    plt.savefig('E:\\Projeto-FaceRecognition\\face_recognition\\graphs\\CMCCurve3.png')
 
+
+
+    # Get the worst photos to identify
+    for element in worst:
+        #print("folder:", element // 4, "photo:", (element % 4) + 2)
+        print("folder:", element // 4, "photo:", (element % 4))
+
+    for i in range(0, 10):
+        print(i, ":", graph[i])
