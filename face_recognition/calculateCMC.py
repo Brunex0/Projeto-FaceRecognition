@@ -132,6 +132,7 @@ if "__main__":
 
         #Get the location of the 10 worst photos
         if(idForPhotos == id):
+            #Get the index of the 10 max values
             worst = np.argpartition(distancesIDLocation, -10)[-10:]
 
         # Determine the values for each rank
@@ -147,13 +148,10 @@ if "__main__":
             graph.append(sum(item) / 360)
         graphsBYID.append(graph)
 
-    #print(graphsBYID[0])
-    #print("----------------------")
-    #print(graphsBYID[1])
-    #print("---------------------")
+
     graph=np.mean(graphsBYID, axis=0)
-    #print(np.mean(graphsBYID, axis=0))
-    print("---------------------")
+
+
     maxPlot=[]
     minPlot=[]
     for i in range(0,90):
@@ -185,8 +183,8 @@ if "__main__":
 
 
     # Get the worst photos to identify
+    print(worst)
     for element in worst:
-        #print("folder:", element // 4, "photo:", (element % 4) + 2)
         print("folder:", element // 4, "photo:", (element % 4))
 
     for i in range(0, 10):

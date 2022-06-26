@@ -18,8 +18,8 @@ FPR = data['y']
 TPR2 = data2['x']
 FPR2 = data2['y']
 
-print(data['w'])
-print(data['z'])
+print("acc", data['w'])
+print("auc", data['z'])
 
 sns.set_style('darkgrid')  # darkgrid, white grid, dark, white and ticks
 sns.color_palette('pastel')
@@ -31,15 +31,15 @@ plt.rc('legend', fontsize=13)  # legend fontsize
 plt.rc('font', size=13)  # controls default text sizes
 plt.figure(figsize=(7, 7), tight_layout=True)
 # plotting
-plt.plot(FPR2, TPR2, linewidth=2)
+#plt.plot(FPR2, TPR2, linewidth=2)
 plt.plot(FPR, TPR, linewidth=2)
 
 # customization
 plt.xlabel('False Positive Rate')
 plt.ylabel('True Positive Rate')
 plt.title('ROC Curve')
-plt.legend(title='AUC', title_fontsize=13, labels=[str(round(float(data2['z']), 3)) + ' Baseline', str(round(float(data['z']), 3)) + ' Align'], loc='lower right')
-#plt.legend(title='AUC', title_fontsize=13, labels=[str(round(float(data['z']), 3)) + ' Align-L2-CosineSim'], loc='lower right')
-plt.savefig('RocCurve/ICBRW/BaselineAlign2.png')
+#plt.legend(title='AUC', title_fontsize=13, labels=[str(round(float(data2['z']), 3)) + ' Baseline', str(round(float(data['z']), 3)) + ' Align'], loc='lower right')
+plt.legend(title='AUC', title_fontsize=13, labels=[str(round(float(data['z']), 3)) + ' Baseline'], loc='lower right')
+plt.savefig('RocCurve/ICBRW/Baseline.png')
 #plt.show()
 
